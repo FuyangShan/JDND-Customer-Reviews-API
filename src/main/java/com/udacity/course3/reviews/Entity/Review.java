@@ -1,6 +1,4 @@
-package com.udacity.course3.reviews.Entity;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+package com.udacity.course3.reviews.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

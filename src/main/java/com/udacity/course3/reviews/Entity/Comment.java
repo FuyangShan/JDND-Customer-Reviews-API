@@ -1,7 +1,4 @@
-package com.udacity.course3.reviews.Entity;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.springframework.beans.factory.annotation.Autowired;
+package com.udacity.course3.reviews.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,7 +16,7 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "review_id")
 
-    //get the review by userName
+    //get the review ???
     private Review review;
 
     //who and when make what comment?
