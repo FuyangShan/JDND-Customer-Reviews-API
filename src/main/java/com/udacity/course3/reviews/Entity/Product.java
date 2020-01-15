@@ -21,6 +21,10 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<Review> reviews;
 
+    //constructor
+    public Product() {
+    }
+
     public Integer getProduct_id() {
         return product_id;
     }

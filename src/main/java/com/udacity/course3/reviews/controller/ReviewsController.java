@@ -1,5 +1,7 @@
 package com.udacity.course3.reviews.controller;
 
+import com.udacity.course3.reviews.repository.ReviewsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,8 @@ import java.util.List;
 public class ReviewsController {
 
     // TODO: Wire JPA repositories here
-
+    @Autowired
+    ReviewsRepository reviewsRepository;
     /**
      * Creates a review for a product.
      * <p>

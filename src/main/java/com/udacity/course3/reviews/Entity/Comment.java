@@ -10,13 +10,11 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer comment_id;
+    private Integer commentId;
 
     //one reviewer can make multiple comments, so here is ManyToOne
     @ManyToOne
     @JoinColumn(name = "review_id")
-
-    //get the review ???
     private Review review;
 
     //who and when make what comment?
@@ -26,13 +24,17 @@ public class Comment {
     @NotNull
     private String comment;
 
-    //getter and setter of the parameters
-    public Integer getComment_id() {
-        return comment_id;
+    //constructor
+    public Comment() {
     }
 
-    public void setComment_id(Integer comment_id) {
-        this.comment_id = comment_id;
+    //getter and setter of the parameters
+    public Integer getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
     }
 
     public Review getReview() {

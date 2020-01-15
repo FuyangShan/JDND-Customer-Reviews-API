@@ -27,16 +27,13 @@ public class ProductsController {
      * 1. Accept product as argument. Use {@link RequestBody} annotation.
      * 2. Save product.
      */
+    // take Product object as an argument of the controller using @RequestBody spring annotation.
+    // This annotation will help the incoming json data to convert into product object.
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct() {
-        throw new HttpServerErrorException(HttpStatus.NOT_IMPLEMENTED);
-
-        //create a new product
-        Product newProduct = new Product;
-
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        return ResponseEntity.ok(productsRepository.save(product));
     }
-
     /**
      * Finds a product by id.
      *
@@ -44,7 +41,10 @@ public class ProductsController {
      * @return The product if found, or a 404 not found.
      */
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<?> findById(@PathVariable("id") Integer id) {
+    public ResponseEntity<Product> findById(@PathVariable("id") Integer id) {
+
+        return ResponseEntity.ok(productsRepository.getProductByProduct_id(id));
+
         throw new HttpServerErrorException(HttpStatus.NOT_IMPLEMENTED);
     }
 

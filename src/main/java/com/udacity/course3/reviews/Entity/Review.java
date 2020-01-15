@@ -9,7 +9,7 @@ import java.util.Set;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer review_id;
+    private Integer reviewId;
 
     //each product can have may reviewers
     @ManyToOne
@@ -19,19 +19,22 @@ public class Review {
     private LocalDateTime createDate;
 
     //Not sure how to construct review here
-    private Review review;
+    //private Review review;
+    public Review(){
+
+    }
 
     //get all the comments from one review
     @OneToMany(mappedBy = "review")
     private Set<Comment> comments;
 
     //generate getter and setters
-    public Integer getReview_id() {
-        return review_id;
+    public Integer getReviewId() {
+        return reviewId;
     }
 
-    public void setReview_id(Integer review_id) {
-        this.review_id = review_id;
+    public void setReviewId(Integer reviewId) {
+        this.reviewId = reviewId;
     }
 
     public Product getProduct() {
@@ -66,11 +69,4 @@ public class Review {
         this.comments = comments;
     }
 
-    public Review getReview() {
-        return review;
-    }
-
-    public void setReview(Review review) {
-        this.review = review;
-    }
 }

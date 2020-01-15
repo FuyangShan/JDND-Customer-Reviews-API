@@ -3,7 +3,7 @@ package com.udacity.course3.reviews.controller;
 import com.udacity.course3.reviews.entity.Comment;
 import com.udacity.course3.reviews.entity.Review;
 import com.udacity.course3.reviews.repository.CommentsRepository;
-import com.udacity.course3.reviews.service.CommentService;
+import com.udacity.course3.reviews.repository.ReviewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +12,7 @@ import org.springframework.web.client.HttpServerErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -24,6 +25,9 @@ public class CommentsController {
 
     @Autowired
     CommentsRepository commentsRepository;
+
+    @Autowired
+    ReviewsRepository reviewsRepository;
     /**
      * Creates a comment for a review.
      *
@@ -35,17 +39,15 @@ public class CommentsController {
      * @param reviewId The id of the review.
      */
     @RequestMapping(value = "/reviews/{reviewId}", method = RequestMethod.POST)
-    public ResponseEntity<Set<Comment>> createCommentForReview(@PathVariable("reviewId") String comment, Integer reviewId) {
-        throw new HttpServerErrorException(HttpStatus.NOT_IMPLEMENTED);
-        //Create a newComment
-        Comment newComment = new Comment;
-        newComment.setComment(comment);
-
-        //add newComment into the set of comments
-        Set<Comment> comments = CommentsRepository.getCommentsByReview_id(reviewId);
-        comments.add(newComment);
-
-        return new ResponseEntity<>(comments, HttpStatus.OK);
+    public ResponseEntity<Comment> createCommentForReview(@PathVariable("reviewId") Integer reviewId, @RequestBody Comment comment) {
+        Optional<Review> review = reviewsRepository.findById(reviewId);
+        if (review.isPresent()) {
+            comment.setReview(review.get());
+            commentsRepository.save(comment);
+            return new ResponseEntity<>(comment, HttpStatus.OK);
+        } else {
+            throw new HttpServerErrorException(HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
@@ -60,8 +62,7 @@ public class CommentsController {
     @RequestMapping(value = "/reviews/{reviewId}", method = RequestMethod.GET)
     public List<Comment> listCommentsForReview(@PathVariable("reviewId") String comment, Integer reviewId) {
         throw new HttpServerErrorException(HttpStatus.NOT_IMPLEMENTED);
-        Set<Comment> commentsList = CommentsRepository.getCommentsByReview_id(reviewId);
+        Set<Comment> commentsList = CommentsRepository.getCommentsByReviewId(reviewId);
         List<Comment> commentsReturn = new ArrayList<Comment>();
-
     }
 }
