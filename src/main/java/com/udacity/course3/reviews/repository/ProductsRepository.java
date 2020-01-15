@@ -8,6 +8,5 @@ import java.util.Set;
 
 @Repository
 public interface ProductsRepository extends JpaRepository<Product, Integer> {
-    Set<Product> saveProduct(Integer product_id);
-    Product getProductByProduct_id(Integer product_id);
+
 }

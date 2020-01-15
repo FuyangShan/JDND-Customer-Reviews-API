@@ -1,5 +1,8 @@
 package com.udacity.course3.reviews.controller;
 
+import com.udacity.course3.reviews.entity.Product;
+import com.udacity.course3.reviews.entity.Review;
+import com.udacity.course3.reviews.repository.ProductsRepository;
 import com.udacity.course3.reviews.repository.ReviewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +21,10 @@ public class ReviewsController {
     // TODO: Wire JPA repositories here
     @Autowired
     ReviewsRepository reviewsRepository;
+
+    @Autowired
+    ProductsRepository productsRepository;
+
     /**
      * Creates a review for a product.
      * <p>
@@ -30,8 +37,19 @@ public class ReviewsController {
      * @return The created review or 404 if product id is not found.
      */
     @RequestMapping(value = "/reviews/products/{productId}", method = RequestMethod.POST)
-    public ResponseEntity<?> createReviewForProduct(@PathVariable("productId") Integer productId) {
-        throw new HttpServerErrorException(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<Review> createReviewForProduct(@PathVariable("productId") Integer productId) {
+        Product product = productsRepository.getOne(productId);
+        //check if product can be FOUND
+        if (product == null) {
+            throw new HttpServerErrorException(HttpStatus.NOT_FOUND);
+        }
+        //set up the review for this product.
+        Review review = new Review();
+        review.setProduct(product);
+
+        //save the review into reviewRepository
+        reviewsRepository.save(review);
+        return ResponseEntity.ok(review);
     }
 
     /**

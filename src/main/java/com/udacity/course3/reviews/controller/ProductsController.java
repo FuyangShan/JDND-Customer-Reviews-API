@@ -42,10 +42,12 @@ public class ProductsController {
      */
     @RequestMapping(value = "/{id}")
     public ResponseEntity<Product> findById(@PathVariable("id") Integer id) {
-
-        return ResponseEntity.ok(productsRepository.getProductByProduct_id(id));
-
-        throw new HttpServerErrorException(HttpStatus.NOT_IMPLEMENTED);
+        Product product = productsRepository.getOne(id);
+        if (product == null) {
+            throw new HttpServerErrorException(HttpStatus.NOT_FOUND);
+        } else {
+            return ResponseEntity.ok(product);
+        }
     }
 
     /**

@@ -12,7 +12,6 @@ CREATE TABLE review (
     `userName` VARCHAR(30) NOT NULL,
     `createDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `review` TEXT NOT NULL,
-    CONSTRAINT product_FK FOREIGN KEY (product_id) REFERENCES product(product_id)
 );
 
 CREATE TABLE comment (
@@ -21,5 +20,4 @@ CREATE TABLE comment (
     `userName` VARCHAR(30) NOT NULL,
     `createDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `comment` TEXT NOT NULL,
-    CONSTRAINT review_FK FOREIGN KEY (review_id) REFERENCES review(review_id)
 );

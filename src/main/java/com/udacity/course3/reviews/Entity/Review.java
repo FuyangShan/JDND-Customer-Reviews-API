@@ -2,6 +2,7 @@ package com.udacity.course3.reviews.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,7 +27,7 @@ public class Review {
 
     //get all the comments from one review
     @OneToMany(mappedBy = "review")
-    private Set<Comment> comments;
+    private List<Comment> comments;
 
     //generate getter and setters
     public Integer getReviewId() {
@@ -61,11 +62,11 @@ public class Review {
         this.createDate = createDate;
     }
 
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 

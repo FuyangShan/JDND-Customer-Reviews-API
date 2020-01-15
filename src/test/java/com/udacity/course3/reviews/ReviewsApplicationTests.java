@@ -5,27 +5,23 @@ import com.udacity.course3.reviews.entity.Review;
 import com.udacity.course3.reviews.repository.CommentsRepository;
 import com.udacity.course3.reviews.repository.ProductsRepository;
 import com.udacity.course3.reviews.repository.ReviewsRepository;
-import org.flywaydb.core.internal.jdbc.JdbcTemplate;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
+
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class ReviewsApplicationTests {
-	//wire the
 
 	@Autowired
 	private CommentsRepository commentsRepository;
@@ -38,24 +34,39 @@ public class ReviewsApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		Review review = new Review();
+		List<Comment> testComments = new ArrayList<>();
+
+		//add arguments in comments;
+		Comment comment = new Comment();
+		comment.setComment("This is Fuyang Testing");
+		comment.setUserName("Fuyang");
+		comment.setCommentId(1);
+
+		testComments.add(comment);
+
+		//set the comments for review
+		review.setReviewId(007);
+		review.setComments(testComments);
+		reviewsRepository.save(review);
+		commentsRepository.save(comment);
 	}
 
 	@Test
 	public void injectedComponentsAreNotNull(){
 		Assert.assertNotNull(commentsRepository);
-		assertThat(productsRepository).isNotNull();
-		assertThat(reviewsRepository).isNotNull();
+		Assert.assertNotNull(productsRepository);
+		Assert.assertNotNull(reviewsRepository);
 	}
 
 	@Test
 	public void testFindCommentsByReview() {
-		//new the cases that needed for the test
-		Review review = new Review();
-		Set<Comment> testComments = new HashSet<Comment>;
+		Review actualReview = reviewsRepository.getOne(007);
+		Assert.assertNotNull(actualReview);
 
-		//testing
-		Set<Comment> actual = commentsRepository.findAllByReview(review);
-		assertThat(actual).isNotNull();
-		assertEquals(review.getComments(), actual);
+		Comment actualComment = commentsRepository.getOne(1);
+		Assert.assertNotNull(actualComment);
+		Assert.assertEquals(actualComment.getComment(), "This is Fuyang Testing");
+		Assert.assertEquals(actualComment.getUserName(), "Fuyang");
 	}
 }
