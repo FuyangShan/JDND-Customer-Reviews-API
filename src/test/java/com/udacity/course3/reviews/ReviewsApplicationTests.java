@@ -5,6 +5,7 @@ import com.udacity.course3.reviews.entity.Review;
 import com.udacity.course3.reviews.repository.CommentsRepository;
 import com.udacity.course3.reviews.repository.ProductsRepository;
 import com.udacity.course3.reviews.repository.ReviewsRepository;
+import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,10 +14,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.EntityManager;
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RunWith(SpringRunner.class)
@@ -46,7 +46,7 @@ public class ReviewsApplicationTests {
 		testComments.add(comment);
 
 		//set the comments for review
-		review.setReviewId(007);
+		review.setReviewId(7);
 		review.setComments(testComments);
 		reviewsRepository.save(review);
 		commentsRepository.save(comment);
@@ -61,12 +61,12 @@ public class ReviewsApplicationTests {
 
 	@Test
 	public void testFindCommentsByReview() {
-		Review actualReview = reviewsRepository.getOne(007);
-		Assert.assertNotNull(actualReview);
+		Optional<Review> actualReview = reviewsRepository.findById(7);
+		Assert.assertNotNull(actualReview.get());
 
-		Comment actualComment = commentsRepository.getOne(1);
-		Assert.assertNotNull(actualComment);
-		Assert.assertEquals(actualComment.getComment(), "This is Fuyang Testing");
-		Assert.assertEquals(actualComment.getUserName(), "Fuyang");
+		Optional<Comment> actualComment = commentsRepository.findById(1);
+		Assert.assertNotNull(actualComment.get());
+		Assert.assertEquals(actualComment.get().getComment(), "This is Fuyang Testing");
+		Assert.assertEquals(actualComment.get().getUserName(), "Fuyang");
 	}
 }

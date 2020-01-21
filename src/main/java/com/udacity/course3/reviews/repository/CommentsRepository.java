@@ -10,7 +10,5 @@ import java.util.Set;
 
 @Repository
 public interface CommentsRepository extends JpaRepository<Comment, Integer> {
-    Comment findCommentByCommentId(Integer comment_id);
     List<Comment> findAllByReviewReviewId(Integer review_id);
-    List<Comment> deleteCommentByCommentId(Integer comment_id);
 }
