@@ -20,7 +20,7 @@ public class Comment {
     //who and when make what comment?
     @NotNull
     private String userName;
-    private LocalDateTime commentDate;
+
     @NotNull
     private String comment;
 
@@ -51,14 +51,6 @@ public class Comment {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public LocalDateTime getCommentDate() {
-        return commentDate;
-    }
-
-    public void setCommentDate(LocalDateTime commentDate) {
-        this.commentDate = commentDate;
     }
 
     public String getComment() {

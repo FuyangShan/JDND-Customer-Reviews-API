@@ -3,7 +3,6 @@ package com.udacity.course3.reviews.entity;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "review")
@@ -17,12 +16,10 @@ public class Review {
     @JoinColumn(name = "product_id")
     private Product product;
     private String userName;
-    private LocalDateTime createDate;
 
     //Not sure how to construct review here
     //private Review review;
     public Review(){
-
     }
 
     //get all the comments from one review
@@ -54,13 +51,6 @@ public class Review {
         this.userName = userName;
     }
 
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
 
     public List<Comment> getComments() {
         return comments;
